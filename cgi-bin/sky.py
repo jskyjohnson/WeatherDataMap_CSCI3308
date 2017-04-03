@@ -8,16 +8,70 @@ cgitb.enable()
 
 url = "https://api.darksky.net/forecast/610cb221b02df38d6c3700281227027b/37.8267,-122.4233"
 #r = urllib.request.urlopen(url)
-data = json.loads(urllib.urlopen(url).read())
+response = json.loads(urllib.urlopen(url).read())
+
+states_caps = {
+        'AL':{'state':'Alabama',        'capital':'Montgomery'},
+        'AK':{'state':'Alaska',         'capital':'Juneau'},
+        'AZ':{'state':'Arizona',        'capital':'Phoenix'},
+        'AR':{'state':'Arkansas',       'capital':'Little Rock'},
+        'CA':{'state':'California',     'capital':'Sacramento'},
+        'CO':{'state':'Colorado',       'capital':'Denver'},
+        'CT':{'state':'Connecticut',    'capital':'Hartford'},
+        'DE':{'state':'Deleware',       'capital':'Dover'},
+        'FL':{'state':'Florida',        'capital':'Tallahassee'},
+        'GA':{'state':'Georgia',        'capital':'Atlanta'},
+        'HI':{'state':'Hawaii',         'capital':'Honolulu'},
+        'ID':{'state':'Idaho',          'capital':'Boise'},
+        'IL':{'state':'Illinois',       'capital':'Springfield'},
+        'IN':{'state':'Indiana',        'capital':'Indianapolis'},
+        'IA':{'state':'Iowa',           'capital':'Des Moines'},
+        'KS':{'state':'Kansas',         'capital':'Topeka'},
+        'KY':{'state':'Kentucky',       'capital':'Frankfort'},
+        'LA':{'state':'Louisiana',      'capital':'Baton Rouge'},
+        'ME':{'state':'Maine',          'capital':'Augusta'},
+        'MD':{'state':'Maryland',       'capital':'Annapolis'},
+        'MA':{'state':'Massachusetts',  'capital':'Boston'},
+        'MI':{'state':'Michigan',       'capital':'Lansing'},
+        'MN':{'state':'Minnesota',      'capital':'Saint Paul'},
+        'MS':{'state':'Mississippi',    'capital':'Jackson'},
+        'MO':{'state':'Missouri',       'capital':'Jefferson City'},
+        'MT':{'state':'Montana',        'capital':'Helena'},
+        'NE':{'state':'Nebraska',       'capital':'Lincoln'},
+        'NV':{'state':'Nevada',         'capital':'Carson City'},
+        'NH':{'state':'New Hampshire',  'capital':'Concord'},
+        'NJ':{'state':'New Jersey',     'capital':'Trenton'},
+        'NM':{'state':'New Mexico',     'capital':'Santa Fe'},
+        'NY':{'state':'New York',       'capital':'Albany'},
+        'NC':{'state':'North Carolina', 'capital':'Raleigh'},
+        'ND':{'state':'North Dakota',   'capital':'Bismarck'},
+        'OH':{'state':'Ohio',           'capital':'Columbus'},
+        'OK':{'state':'Oklahoma',       'capital':'Oklahoma City'},
+        'OR':{'state':'Oregon',         'capital':'Salem'},
+        'PA':{'state':'Pennsylvania',   'capital':'Harrisburg'},
+        'RI':{'state':'Rhode Island',   'capital':'Providence'},
+        'SC':{'state':'South Carolina', 'capital':'Columbia'},
+        'SD':{'state':'South Dakota',   'capital':'Pierre'},
+        'TN':{'state':'Tennessee',      'capital':'Nashville'},
+        'TX':{'state':'Texas',          'capital':'Austin'},
+        'UT':{'state':'Utah',           'capital':'Salt Lake City'},
+        'VT':{'state':'Vermont',        'capital':'Montpelier'},
+        'VA':{'state':'Virginia',       'capital':'Richmond'},
+        'WA':{'state':'Washington',     'capital':'Olympia'},
+        'WV':{'state':'West Virginia',  'capital':'Charleston'},
+        'WI':{'state':'Wisconsin',      'capital':'Madison'},
+        'WY':{'state':'Wyoming',        'capital':'Cheyenne'},
+    }
+
 print ("Content-type: text/html")
 print ('''
 <html>
  <head>
+   <script src="http://code.jquery.com/jquery-2.2.1.js"></script>
    <title>HW #4 Johnson</title>
  </head>
  <body>
 ''')
-print(data)
 print ('''
  <?xml version="1.0" encoding="UTF-8" standalone="no"?>
  <svg xmlns="http://www.w3.org/2000/svg" width="959" height="593">
@@ -94,4 +148,13 @@ print ('''
 </body>
 </html>
 ''')
+print response
+print '''
+ <script>
+ $( document ).ready(function() {'''
 
+print "$('#CO').css('fill', 'red')"
+
+print '''
+ });
+ </script>'''
