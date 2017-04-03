@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 import cgitb
 import json
 import urllib
@@ -9,8 +9,6 @@ cgitb.enable()
 url = "https://api.darksky.net/forecast/610cb221b02df38d6c3700281227027b/37.8267,-122.4233"
 #r = urllib.request.urlopen(url)
 data = json.loads(urllib.urlopen(url).read())
-print(data)
-
 print ("Content-type: text/html")
 print ('''
 <html>
@@ -18,7 +16,9 @@ print ('''
    <title>HW #4 Johnson</title>
  </head>
  <body>
-
+''')
+print(data)
+print ('''
  <?xml version="1.0" encoding="UTF-8" standalone="no"?>
  <svg xmlns="http://www.w3.org/2000/svg" width="959" height="593">
  <title>Blank US states map</title>
@@ -94,3 +94,4 @@ print ('''
 </body>
 </html>
 ''')
+
