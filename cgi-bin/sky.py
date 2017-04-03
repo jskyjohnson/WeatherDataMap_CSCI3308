@@ -1,15 +1,15 @@
 #!/usr/bin/python
 import cgitb
 import json
+import urllib
 
 #pulled from http://stackoverflow.com/questions/13921910/python-urllib2-receive-json-response-from-url
 cgitb.enable()
 
-url_string = "https://api.darksky.net/forecast/610cb221b02df38d6c3700281227027b/37.8267,-122.4233"
-
-import requests
-r = requests.get(url_string)
-#print(r.json())
+url = "https://api.darksky.net/forecast/610cb221b02df38d6c3700281227027b/37.8267,-122.4233"
+#r = urllib.request.urlopen(url)
+data = json.loads(urllib.urlopen(url).read())
+print(data)
 
 print ("Content-type: text/html")
 print ('''
