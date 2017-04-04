@@ -2,10 +2,10 @@
 import cgitb
 import json
 import urllib
-
+from geopy.geocoders import Nominatim
 #pulled from http://stackoverflow.com/questions/13921910/python-urllib2-receive-json-response-from-url
 cgitb.enable()
-
+geolocator = Nominatim()
 url = "https://api.darksky.net/forecast/610cb221b02df38d6c3700281227027b/37.8267,-122.4233"
 #r = urllib.request.urlopen(url)
 response = json.loads(urllib.urlopen(url).read())
@@ -149,12 +149,20 @@ print ('''
 </html>
 ''')
 #print response
+for state_code, v in states_caps.items():
+    #print v
+    location = geolocator.geocode("{1} {0}".format(v.get('state'), v.get('capital')))
+    print(location.raw)
+
 print '''
  <script>
  $( document ).ready(function() {'''
 
-for state_letters in states_caps: 
-    print "$('#{0}').css('fill', 'red')".format(state_letters)
+for state_code, v in states_caps:
+    #print v
+    #location = geolocator.geocode("{1} {0}".format(v.get('state'), v.get('capital')))
+    #print(location.raw)
+    print "$('#{0}').css('fill', 'red')".format(state_code)
 print '''
  });
  </script>'''
