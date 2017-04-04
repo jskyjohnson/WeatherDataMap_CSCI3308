@@ -6,16 +6,16 @@ from geopy.geocoders import Nominatim
 #pulled from http://stackoverflow.com/questions/13921910/python-urllib2-receive-json-response-from-url
 cgitb.enable()
 geolocator = Nominatim()
-url = "https://api.darksky.net/forecast/610cb221b02df38d6c3700281227027b/37.8267,-122.4233"
+url = "https://api.darksky.net/forecast/610cb221b02df38d6c3700281227027b/"
 #r = urllib.request.urlopen(url)
-response = json.loads(urllib.urlopen(url).read())
+#response = json.loads(urllib.urlopen(url).read())
 
 states_caps = {
         'AL':{'state':'Alabama',        'capital':'Montgomery'},
         'AK':{'state':'Alaska',         'capital':'Juneau'},
         'AZ':{'state':'Arizona',        'capital':'Phoenix'},
         'AR':{'state':'Arkansas',       'capital':'Little Rock'},
-#        'CA':{'state':'California',     'capital':'Sacramento'},
+        'CA':{'state':'California',     'capital':'Sacramento'},
 #        'CO':{'state':'Colorado',       'capital':'Denver'},
 #        'CT':{'state':'Connecticut',    'capital':'Hartford'},
 #        'DE':{'state':'Deleware',       'capital':'Dover'},
@@ -60,7 +60,7 @@ states_caps = {
 #        'WA':{'state':'Washington',     'capital':'Olympia'},
 #        'WV':{'state':'West Virginia',  'capital':'Charleston'},
 #        'WI':{'state':'Wisconsin',      'capital':'Madison'},
-        'WY':{'state':'Wyoming',        'capital':'Cheyenne'},
+#        'WY':{'state':'Wyoming',        'capital':'Cheyenne'},
     }
 
 print ("Content-type: text/html")
@@ -148,21 +148,39 @@ print ('''
 </body>
 </html>
 ''')
-#print response
-for state_code, v in states_caps.items():
-    #print v
-    location = geolocator.geocode("{1} {0}".format(v.get('state'), v.get('capital')))
-    print(location.raw)
+#for state_code, v in states_caps.items():
+#    location= geolocator.geocode("{1} {0}".format(v.get('state'), v.get('capital')))
+#    lat = str(location.latitude)
+#    long = str(location.longitude)
+#    url_city = "".join([url, lat, ',', long])
+#    print url_city
+#    response_city = json.loads(urllib.urlopen(url_city).read())
+#    temp = response_city['currently'][0]['apparentTemperature']
+#    print temp
 
 print '''
  <script>
  $( document ).ready(function() {'''
 
-for state_code, v in states_caps:
-    #print v
-    #location = geolocator.geocode("{1} {0}".format(v.get('state'), v.get('capital')))
-    #print(location.raw)
-    print "$('#{0}').css('fill', 'red')".format(state_code)
+for state_code, v in states_caps.items():
+    location= geolocator.geocode("{1} {0}".format(v.get('state'), v.get('capital')))
+    lat = str(location.latitude)
+    long = str(location.longitude)
+    url_city = "".join([url, lat, ',', long])
+#    print url_city
+    response_city = json.loads(urllib.urlopen(url_city).read())
+    temp = response_city['currently']['apparentTemperature']
+#    print temp
+    if temp<10:
+        print "$('#{0}').css('fill', 'blue')".format(state_code)
+    elif temp<30:
+        print "$('#{0}').css('fill', 'cyan')".format(state_code)
+    elif temp<50:
+        print "$('#{0}').css('fill', 'green')".format(state_code)
+    elif temp<80:
+        print "$('#{0}').css('fill', 'orange')".format(state_code)
+    elif temp>80:
+        print "$('#{0}').css('fill', 'red')".format(state_code)
 print '''
  });
  </script>'''
