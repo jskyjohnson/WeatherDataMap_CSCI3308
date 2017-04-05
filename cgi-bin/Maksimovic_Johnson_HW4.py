@@ -68,7 +68,7 @@ print ('''
 <html>
  <head>
    <script src="http://code.jquery.com/jquery-2.2.1.js"></script>
-   <title>HW #4 Johnson</title>
+   <title>HW #4 Maksimovic Johnson</title>
  </head>
  <body>
 ''')
